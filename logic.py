@@ -53,13 +53,15 @@ from langchain.memory import ConversationBufferWindowMemory
 AZURE_SERVER = 'marketinganalytics1.database.windows.net'
 AZURE_DATABASE = 'analyticsDB'
 AZURE_USERNAME = 'serveradmin'
-AZURE_PASSWORD = 'hotgex-fAkpu0-saxjug'  # Ensure correct escaping if special characters are present
-AZURE_DRIVER = 'ODBC Driver 18 for SQL Server'
+AZURE_PASSWORD = 'hotgex-fAkpu0-saxjug'
+# Change the driver to FreeTDS
+AZURE_DRIVER = 'FreeTDS'
 
-# Build SQLAlchemy connection string
+# Build SQLAlchemy connection string for FreeTDS
 connection_string = (
     f"mssql+pyodbc://{AZURE_USERNAME}:{AZURE_PASSWORD}@{AZURE_SERVER}:1433/{AZURE_DATABASE}"
-    f"?driver={AZURE_DRIVER.replace(' ', '+')}&Encrypt=yes&TrustServerCertificate=no"
+    # Use the new driver and add TDS_Version for compatibility with Azure SQL
+    f"?driver={AZURE_DRIVER}&Encrypt=yes&TrustServerCertificate=no&TDS_Version=7.4"
 )
 
 # Set API Key
