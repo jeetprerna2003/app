@@ -1,2 +1,2 @@
-freetds-dev
+sqlalchemy
 unixodbc-dev
